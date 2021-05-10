@@ -137,7 +137,6 @@ class My_Board(QWidget):
         self.painter.begin(self.pixmap)
         if self.erasemode == False:
             self.painter.setPen(QPen(self.Color, self.penwidth, Qt.SolidLine))
-            self.painter.setPen(QColor(self.Color))
         else:
             self.painter.setPen(QPen(Qt.white, 4, Qt.SolidLine))
 
