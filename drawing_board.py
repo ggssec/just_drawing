@@ -1,5 +1,6 @@
 import sys
 import cv2
+import tkinter as tk
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -7,7 +8,6 @@ from rect import Rect
 from ellipse import Ellipse
 from Physical_boundary_acquisition import *
 from looking_for_vertices import *
-import tkinter as tk
 from tkinter import filedialog
 
 from functions import rank
@@ -19,7 +19,7 @@ import copy
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class mylable(QWidget):
+class My_Board(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -49,18 +49,18 @@ class mylable(QWidget):
         # 显示坐标
 
     def initui(self):
-        grid = QGridLayout()
-        grid.setSpacing(100)
-        self.setLayout(grid)
+        # grid = QGridLayout()
+        # grid.setSpacing(100)
+        # self.setLayout(grid)
 
         x = 0
         y = 0
 
         self.text = "x:{0},Y:{0}".format(x, y)
-        self.label = QLabel(self.text, self)
-        grid.addWidget(self.label, 20, 20, Qt.AlignTop)
+        # self.label = QLabel(self.text, self)
+        # grid.addWidget(self.label, 20, 20, Qt.AlignTop)
         self.setMouseTracking(False)
-        self.setLayout(grid)
+        # self.setLayout(grid)
         self.setGeometry(500, 300, 100, 25)
         self.setWindowTitle('Event object')
         self.show()
@@ -128,9 +128,12 @@ class mylable(QWidget):
     def mouseMoveEvent(self, event):
         x = event.x()
         y = event.y()
+        window = self.parent().window()
+        if window is not None:
+            self.parent().window().Board_Coordinates.setText('X: %d; Y: %d' % (event.x(), event.y()))
 
-        text = "x:{0},y:{1}".format(x, y)
-        self.label.setText(text)
+        # text = "x:{0},y:{1}".format(x, y)
+        # self.label.setText(text)
         self.painter.begin(self.pixmap)
         if self.erasemode == False:
             self.painter.setPen(QPen(self.Color, self.penwidth, Qt.SolidLine))
@@ -162,10 +165,10 @@ class mylable(QWidget):
         print(pos_tmp)
 
         # 将坐标值导出
-        data = open(r"F:\1b\program\grid_generation_software2021\画板坐标.txt", 'a')
-        data.write(str(pos_tmp))
-        data.write("\t")
-        data.close()
+        # data = open(r"D:\pycharm\git-bfc2021\画板坐标.txt", 'a')
+        # data.write(str(pos_tmp))
+        # data.write("\t")
+        # data.close()
         # pos_tmp添加到self.pos_xy中
         self.pos_xy.append(pos_tmp)
 
@@ -246,14 +249,19 @@ class window(QMainWindow):
         self.graphoto1.currentIndexChanged.connect(self.choose_graph)
 
         # 设置画板
-        self.lb = mylable(self)
-        self.lb.setGeometry(120, 10, 601, 501)
+        self.My_Paper = My_Board(self)
+        self.My_Paper.setGeometry(120, 10, 601, 501)
 
         self.button_file.clicked.connect(self.openfile)
         self.button_color.clicked.connect(self.choose_color)
         self.button_width.clicked.connect(self.choose_width)
         self.button_Clear.clicked.connect(self.paint_BoardClear)
         self.button_Eraser.clicked.connect(self.Eraser)
+
+        self.statusBar().showMessage('                              坐标')
+        self.statusBar().show()
+        self.Board_Coordinates = QLabel('')
+        self.statusBar().addPermanentWidget(self.Board_Coordinates)
 
     def openfile(self):
         # fpath = QFileDialog.getOpenFileName(self, "选择文件", ".")
@@ -337,9 +345,11 @@ class window(QMainWindow):
     def bt_choice4(self, image):
         image = Decrease_pixel_density(image)  # 降低像素密度
         looking_for_vertices1 = LookingForVertices(image)  # 新对象
-        boundary_coordinates = looking_for_vertices1.Extract_rectangular_2_fast(image)  # 获取顶点坐标信息
+        boundary_coordinates = looking_for_vertices1.Extract_rectangular_2(image)  # 获取顶点坐标信息
         del boundary_coordinates[0]
+        # print(boundary_coordinates)
         boundary_coordinates1 = change_coordinate(self.h, boundary_coordinates)
+        # print(boundary_coordinates1)
         plots = np.array(boundary_coordinates1)
         mesh1 = block_meshing(plots, 10, 10)
         mesh1.mesh(10)
@@ -347,36 +357,36 @@ class window(QMainWindow):
     def choose_color(self):
         Color = QColorDialog.getColor()  # color是Qcolor
         if Color.isValid():
-            self.lb.Color = Color
+            self.My_Paper.Color = Color
 
     # 设置橡皮擦模式
     def Eraser(self):
         if self.button_Eraser.isChecked():
-            self.lb.erasemode = True
+            self.My_Paper.erasemode = True
         else:
-            self.lb.erasemode = False
+            self.My_Paper.erasemode = False
 
     # 选择画笔粗细
     def choose_width(self):
         width, ok = QInputDialog.getInt(self, '选择画笔粗细', '请输入粗细：', min=1, step=1)
         if ok:
-            self.lb.penwidth = width
+            self.My_Paper.penwidth = width
 
     # 清空画板
     def paint_BoardClear(self):
-        self.lb.__IsEmpty = True
-        self.lb.pixmap.fill(Qt.white)
+        self.My_Paper.__IsEmpty = True
+        self.My_Paper.pixmap.fill(Qt.white)
         self.update()
 
     # 选择不同的图形进行绘画
     def choose_graph(self):
         graph_index = self.graphoto1.currentText()
         if graph_index == '画线':
-            self.lb.Draw = '画线'
+            self.My_Paper.Draw = '画线'
         elif graph_index == '圆形':
-            self.lb.Draw = '圆形'
+            self.My_Paper.Draw = '圆形'
         elif graph_index == '矩形':
-            self.lb.Draw = '矩形'
+            self.My_Paper.Draw = '矩形'
 
 
 if __name__ == '__main__':
