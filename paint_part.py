@@ -1,21 +1,9 @@
-import sys
-import cv2
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from rect import Rect
 from ellipse import Ellipse
-# from Physical_boundary_acquisition import *
-# from looking_for_vertices import *
-from tkinter import filedialog
 
-# from functions import rank
-# from polygon import *
-# from round import *
-import json
-import os
-import copy
-from PyQt5 import QtCore, QtGui, QtWidgets
 
 class My_Board(QWidget):
 
@@ -39,7 +27,6 @@ class My_Board(QWidget):
         self.situation2 = False  # 描述在不在画
         self.shape2 = None  # 存储画过的椭圆
         self.ellipse_list = []
-        self.erasemode = False  # 默认不开启橡皮擦
         self.pos_xy = []
         self.points = []  # 储存读取的坐标点
         self.drawpath = False
@@ -144,11 +131,8 @@ class My_Board(QWidget):
         # text = "x:{0},y:{1}".format(x, y)
         # self.label.setText(text)
         self.painter.begin(self.pixmap)
-        if self.erasemode == False:
-            self.painter.setPen(QPen(self.Color, self.penwidth, Qt.SolidLine))
+        self.painter.setPen(QPen(self.Color, self.penwidth, Qt.SolidLine))
             # self.painter.setPen(QColor(self.Color))
-        else:
-            self.painter.setPen(QPen(Qt.white, 4, Qt.SolidLine))
 
         if self.Draw == "画线":
             self.endPoint = event.pos()

@@ -30,70 +30,71 @@ from paint_part import *
 
 
 class Ui_mainWindow(object):
-
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
         mainWindow.resize(794, 597)
-        self.centralwidget = QWidget(mainWindow)
+        self.centralwidget = QtWidgets.QWidget(mainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayoutWidget = QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QRect(10, 10, 160, 341))
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 160, 341))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.pushButton_width = QPushButton(self.verticalLayoutWidget)
+        self.pushButton_width = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pushButton_width.setObjectName("pushButton_2")
         self.verticalLayout.addWidget(self.pushButton_width)
-        self.pushButton_color = QPushButton(self.verticalLayoutWidget)
+        self.pushButton_color = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pushButton_color.setObjectName("pushButton_3")
         self.verticalLayout.addWidget(self.pushButton_color)
-        self.pushButton_clear = QPushButton(self.verticalLayoutWidget)
+        self.pushButton_clear = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pushButton_clear.setObjectName("pushButton")
         self.verticalLayout.addWidget(self.pushButton_clear)
-        self.checkBox_eraser = QCheckBox(self.verticalLayoutWidget)
-        self.checkBox_eraser.setObjectName("checkBox")
-        self.verticalLayout.addWidget(self.checkBox_eraser, 0, QtCore.Qt.AlignHCenter)
-        self.comboBox = QComboBox(self.verticalLayoutWidget)
+        self.comboBox = QtWidgets.QComboBox(self.verticalLayoutWidget)
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.verticalLayout.addWidget(self.comboBox)
         mainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(mainWindow)
-        self.menubar.setGeometry(QRect(0, 0, 794, 23))
+        self.menubar = QtWidgets.QMenuBar(mainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 794, 23))
         self.menubar.setObjectName("menubar")
-        self.menu = QMenu(self.menubar)
+        self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")
-        self.menu_2 = QMenu(self.menubar)
-        self.menu_2.setObjectName("menu_2")
-        self.menu_3 = QMenu(self.menubar)
+        self.menu_5 = QtWidgets.QMenu(self.menu)
+        self.menu_5.setObjectName("menu_5")
+        self.menu_6 = QtWidgets.QMenu(self.menu)
+        self.menu_6.setObjectName("menu_6")
+        self.menu_3 = QtWidgets.QMenu(self.menubar)
         self.menu_3.setObjectName("menu_3")
-        self.menu_4 = QMenu(self.menubar)
-        self.menu_4.setObjectName("menu_4")
         mainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(mainWindow)
+        self.statusbar = QtWidgets.QStatusBar(mainWindow)
         self.statusbar.setObjectName("statusbar")
         mainWindow.setStatusBar(self.statusbar)
-        self.action_2 = QAction(mainWindow)
-        self.action_2.setObjectName("action_2")
-        self.action_3 = QAction(mainWindow)
-        self.action_3.setObjectName("action_3")
-        self.action_4 = QAction(mainWindow)
-        self.action_4.setObjectName("action_4")
-        self.action_5 = QAction(mainWindow)
-        self.action_5.setObjectName("action_5")
-        self.action = QAction(mainWindow)
+        self.action = QtWidgets.QAction(mainWindow)
         self.action.setObjectName("action")
-        self.menu.addAction(self.action_2)
-        self.menu.addAction(self.action_3)
-        self.menu_3.addAction(self.action_4)
-        self.menu_3.addAction(self.action_5)
+        self.action_dxf = QtWidgets.QAction(mainWindow)
+        self.action_dxf.setObjectName("action_dxf")
+        self.action_4 = QtWidgets.QAction(mainWindow)
+        self.action_4.setObjectName("action_4")
+        self.action_5 = QtWidgets.QAction(mainWindow)
+        self.action_5.setObjectName("action_5")
+        self.action_6 = QtWidgets.QAction(mainWindow)
+        self.action_6.setObjectName("action_6")
+        self.action_7 = QtWidgets.QAction(mainWindow)
+        self.action_7.setObjectName("action_7")
+        self.menu_5.addAction(self.action_dxf)
+        self.menu_5.addAction(self.action_4)
+        self.menu_6.addAction(self.action_5)
+        self.menu_6.addAction(self.action_6)
+        self.menu.addAction(self.menu_5.menuAction())
+        self.menu.addAction(self.menu_6.menuAction())
+        self.menu_3.addAction(self.action_7)
         self.menubar.addAction(self.menu.menuAction())
-        self.menubar.addAction(self.menu_2.menuAction())
         self.menubar.addAction(self.menu_3.menuAction())
-        self.menubar.addAction(self.menu_4.menuAction())
+
+
 
         self.My_Area = My_Board(mainWindow)
         self.My_Area.setGeometry(180, 40, 601, 501)
@@ -103,41 +104,44 @@ class Ui_mainWindow(object):
         self.pushButton_clear.clicked.connect(self.paint_BoardClear)
         self.pushButton_width.clicked.connect(self.choose_width)
         self.pushButton_color.clicked.connect(self.choose_color)
-        self.checkBox_eraser.clicked.connect(self.Eraser)
-        self.action_3.triggered.connect(self.save_pic)
-        self.action_4.triggered.connect(self.openfile)
+        self.action_5.triggered.connect(self.save_pic)
+        self.action_4.triggered.connect(self.creatweb)
+        self.action_dxf.triggered.connect(self.opendxf)
         self.comboBox.currentIndexChanged.connect(self.choose_graph)
 
         QMetaObject.connectSlotsByName(mainWindow)
 
     def retranslateUi(self, mainWindow):
         _translate = QtCore.QCoreApplication.translate
-        mainWindow.setWindowTitle(_translate("mainWindow", "grid generation software"))
+        mainWindow.setWindowTitle(_translate("mainWindow", "MainWindow"))
         self.pushButton_width.setText(_translate("mainWindow", "画笔粗细"))
         self.pushButton_color.setText(_translate("mainWindow", "画板颜色"))
         self.pushButton_clear.setText(_translate("mainWindow", "清空画板"))
-        self.checkBox_eraser.setText(_translate("mainWindow", "使用橡皮擦"))
         self.comboBox.setItemText(0, _translate("mainWindow", "画线"))
         self.comboBox.setItemText(1, _translate("mainWindow", "矩形"))
-        self.comboBox.setItemText(2, _translate("mainWindow", "圆形"))
+        self.comboBox.setItemText(2, _translate("mainWindow", "椭圆"))
         self.menu.setTitle(_translate("mainWindow", "文件"))
-        self.menu_2.setTitle(_translate("mainWindow", "设置"))
+        self.menu_5.setTitle(_translate("mainWindow", "打开"))
+        self.menu_6.setTitle(_translate("mainWindow", "保存"))
         self.menu_3.setTitle(_translate("mainWindow", "工具"))
-        self.menu_4.setTitle(_translate("mainWindow", "帮助"))
-        self.action_2.setText(_translate("mainWindow", "打开"))
-        self.action_3.setText(_translate("mainWindow", "保存"))
-        self.action_4.setText(_translate("mainWindow", "生成网格"))
-        self.action_5.setText(_translate("mainWindow", "保存网格"))
         self.action.setText(_translate("mainWindow", "关于软件"))
-
-
+        self.action_dxf.setText(_translate("mainWindow", "打开dxf文件"))
+        self.action_4.setText(_translate("mainWindow", "打开网格数据"))
+        self.action_5.setText(_translate("mainWindow", "保存图片"))
+        self.action_6.setText(_translate("mainWindow", "保存网格数据"))
+        self.action_7.setText(_translate("mainWindow", "生成网格"))
 
         mainWindow.statusBar().showMessage('                                    坐标')
         mainWindow.statusBar().show()
         mainWindow.Board_Coordinates = QLabel('')
         mainWindow.statusBar().addPermanentWidget(mainWindow.Board_Coordinates)
 
-    def openfile(self):
+
+    def opendxf(self):
+
+        a =1
+
+    def creatweb(self):
         # # fpath = QFileDialog.getOpenFileName(self, "选择文件", ".")
         # # Realpath = os.path.split(fpath[-2])[:-1]
         # # os.chdir(Realpath[0]) # 修改读取图片的路径
@@ -220,14 +224,6 @@ class Ui_mainWindow(object):
         Color = QColorDialog.getColor()  # color是Qcolor
         if Color.isValid():
             self.My_Area.Color = Color
-
-        # 设置橡皮擦模式
-
-    def Eraser(self):
-        if self.checkBox_eraser.isChecked():
-            self.My_Area.erasemode = True
-        else:
-            self.My_Area.erasemode = False
 
         # 选择画笔粗细
 
