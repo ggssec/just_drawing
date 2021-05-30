@@ -24,7 +24,7 @@ class My_Board(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.pixmap = QPixmap(598, 498)  # 考虑边框的间距 减去px
-
+        a = 1
         self.__IsEmpty = True
         self.Draw = "画线"
         self.pixmap.fill(Qt.white)
