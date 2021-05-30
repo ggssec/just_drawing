@@ -139,7 +139,8 @@ class Ui_mainWindow(object):
 
     def opendxf(self):
 
-        a =1
+        savePath = QFileDialog.getOpenFileName(None, '选择文件', '.\\', '*.dxf')
+        print(savePath[0])
 
     def creatweb(self):
         # # fpath = QFileDialog.getOpenFileName(self, "选择文件", ".")
