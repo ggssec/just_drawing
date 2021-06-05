@@ -9,6 +9,7 @@
 
 
 import sys
+import dxfgrabber
 import cv2
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -94,8 +95,6 @@ class Ui_mainWindow(object):
         self.menubar.addAction(self.menu.menuAction())
         self.menubar.addAction(self.menu_3.menuAction())
 
-
-
         self.My_Area = My_Board(mainWindow)
         self.My_Area.setGeometry(180, 40, 601, 501)
 
@@ -136,11 +135,55 @@ class Ui_mainWindow(object):
         mainWindow.Board_Coordinates = QLabel('')
         mainWindow.statusBar().addPermanentWidget(mainWindow.Board_Coordinates)
 
-
     def opendxf(self):
 
-        savePath = QFileDialog.getOpenFileName(None, '选择文件', '.\\', '*.dxf')
-        print(savePath[0])
+        dxf_name = QFileDialog.getOpenFileName(None, '选择文件', '.\\', '*.dxf')
+        dxf = dxfgrabber.readfile(dxf_name[0])
+        line = []
+        circle_c = []
+        circle_r = []
+        lwpolyline = []
+        entities_center = []
+        entities_major_axis = []
+        entities_ratio = []
+
+        type_of_entity = []
+        for entities in dxf.entities:
+            type_of_entity.append(entities.dxftype)
+        print(type_of_entity)
+        if type_of_entity.count(type_of_entity[0]) == len(type_of_entity):  # 真的话就是所有元素是一个类型
+            if type_of_entity[0] == 'LINE':
+                for entities in dxf.entities:
+                    line.append(entities.start[:2])
+                    line.append(entities.end[:2])
+                line = set(line)
+                print("line:" + str(line))
+                # 本行插入点排序函数与多边形网格划分函数
+
+            if type_of_entity[0] == 'CIRCLE':
+                for entities in dxf.entities:
+                    circle_c.append(entities.center[:2])
+                    circle_r.append(entities.radius)
+                print(circle_c)
+                print(circle_r)
+
+            if type_of_entity[0] == 'LWPOLYLINE':
+                for entities in dxf.entities:
+                    lwpolyline.append(entities.points)
+                print(lwpolyline)
+
+            if type_of_entity[0] == 'Ellipse':
+                for entities in dxf.entities:
+                    entities_center.append(entities.center)
+                    entities_major_axis.append(entities.major_axis)
+                    entities_ratio.append(entities.ratio)
+                print(
+                    entities_center,
+                    entities_major_axis,
+                    entities_ratio
+                )
+        else:
+            print("非单一元素")
 
     def creatweb(self):
         # # fpath = QFileDialog.getOpenFileName(self, "选择文件", ".")
@@ -197,7 +240,7 @@ class Ui_mainWindow(object):
 
     def bt_choice2(self):
 
-        plots = tuoyuan(self.My_Area.coord_elli, self.My_Area.elli_long, self.My_Area.elli_short,50,50)
+        plots = tuoyuan(self.My_Area.coord_elli, self.My_Area.elli_long, self.My_Area.elli_short, 50, 50)
         plots.mesh(5)
 
     def bt_choice3(self):
@@ -251,8 +294,9 @@ class Ui_mainWindow(object):
             self.My_Area.Draw = '圆形'
         elif graph_index == '矩形':
             self.My_Area.Draw = '矩形'
-if __name__ == "__main__":
 
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     mainWindow = QMainWindow()
     ui = Ui_mainWindow()
