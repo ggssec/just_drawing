@@ -22,19 +22,19 @@ def read_dxf(dxf_name):
         if entities.dxftype == 'CIRCLE':
             print('CIRCLE')
             circle.append(entities.center)
-            circle.append(entities.ratius)
+            circle.append(entities.radius)
             print(entities.center, entities.radius)
         if entities.dxftype == 'LWPOLYLINE':
             print('LWPOLYLINE')
             lwpolyline.append(entities.points)
             print(entities.points)
-        if entities.dxftype == 'Ellipse':
+        if entities.dxftype == 'ELLIPSE':
             print('Ellipse')
             print(entities.center, entities.major_axis, entities.ratio, entities.start_param, entities.end_param)
 
 
 
-read_dxf("dxf\\rectangular.dxf")
+read_dxf("dxf\\ellipse1.dxf")
 print("line " + str(line))
 print("circle " + str(circle))
 print("lwpolyline " + str(lwpolyline))

@@ -42,17 +42,14 @@ class My_Board(QWidget):
         y = 0
 
         self.text = "x:{0},Y:{0}".format(x, y)
-        # self.label = QLabel(self.text, self)
-        # grid.addWidget(self.label, 20, 20, Qt.AlignTop)
         self.setMouseTracking(False)
-        # self.setLayout(grid)
         self.setGeometry(500, 300, 100, 25)
         self.setWindowTitle('Event object')
         self.show()
 
     def make_image(self):
         #获取画板内容（返回QImage）
-        img = self.pixmap.toImage()
+        img = self.pixmap
         return img
 
 
@@ -62,7 +59,7 @@ class My_Board(QWidget):
 
         size = self.size()  # 获得窗口的尺寸。
 
-        self.painter.begin(self)
+        self.painter.begin(self.pixmap)
         self.painter.drawPixmap(0, 0, self.pixmap)
         self.painter.setPen(QPen(self.Color, self.penwidth, Qt.SolidLine))
 
