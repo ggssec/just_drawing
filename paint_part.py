@@ -50,7 +50,7 @@ class My_Board(QWidget):
         self.setWindowTitle('Event object')
         self.show()
 
-    def GetContentAsQImage(self):
+    def make_image(self):
         #获取画板内容（返回QImage）
         img = self.pixmap.toImage()
         return img
@@ -69,7 +69,7 @@ class My_Board(QWidget):
         if self.points:
             self.painter.drawPolygon(QPolygon(self.points))
 
-        if self.Draw == "圆形":
+        if self.Draw == "椭圆":
 
             if self._IfEmpty == 0:
                 self.ellipse_list = []
@@ -100,7 +100,7 @@ class My_Board(QWidget):
                 self.lastPoint = self.endPoint
                 self.update()
 
-            elif self.Draw == "圆形":
+            elif self.Draw == "椭圆":
                 self.shape2 = Ellipse()
                 if self.shape2 is not None:
                     self.situation2 = False
@@ -140,7 +140,7 @@ class My_Board(QWidget):
             self.lastPoint = self.endPoint
             self.update()
 
-        elif self.Draw == "圆形":
+        elif self.Draw == "椭圆":
             if self.shape2 is not None and not self.situation2:
                 self.shape2.setEnd2(event.pos())
                 self.update()
@@ -175,7 +175,7 @@ class My_Board(QWidget):
                 self.shape1 = None
                 self.coord_rect = [[self.x1, self.y1], [self.x2, self.y1], [self.x1, self.y2], [self.x2, self.y2]]
                 print(self.coord_rect)
-            if self.Draw == '圆形':
+            if self.Draw == '椭圆':
                 self.situation2 = True
                 self.shape2 = None
                 self.coord_elli = [(self.x1 + self.x2)/2, (self.y1 + self.y2)/2]

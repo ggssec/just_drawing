@@ -258,10 +258,7 @@ class Ui_mainWindow(object):
     def save_pic(self):
         savePath = QFileDialog.getSaveFileName(None, 'Save Your Paint', '.\\', '*.png')
         print(savePath)
-        # if savePath[0] == "":
-        #     print("Save cancel")
-        #     return
-        image = self.My_Area.GetContentAsQImage()
+        image = self.My_Area.make_image()
         image.save(savePath[0])
 
     def choose_color(self):
@@ -290,8 +287,8 @@ class Ui_mainWindow(object):
         graph_index = self.comboBox.currentText()
         if graph_index == '画线':
             self.My_Area.Draw = '画线'
-        elif graph_index == '圆形':
-            self.My_Area.Draw = '圆形'
+        elif graph_index == '椭圆':
+            self.My_Area.Draw = '椭圆'
         elif graph_index == '矩形':
             self.My_Area.Draw = '矩形'
 
