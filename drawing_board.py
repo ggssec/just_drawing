@@ -198,12 +198,12 @@ class Ui_mainWindow(object):
 
 
     def creat_dxfweb(self):
-        box = QMessageBox(QMessageBox.Question, '选择', '选择网格密度', QMessageBox.NoButton)
-        choice_high = box.addButton('高', QMessageBox.YesRole)
-        choice_middle = box.addButton('中', QMessageBox.YesRole)
-        choice_low = box.addButton('低', QMessageBox.YesRole)
 
-        box.show()
+        self.box_dxf = QMessageBox(QMessageBox.Question, '选择', '选择网格密度', QMessageBox.NoButton)
+        choice_high = self.box_dxf.addButton('高', QMessageBox.YesRole)
+        choice_middle = self.box_dxf.addButton('中', QMessageBox.YesRole)
+        choice_low = self.box_dxf.addButton('低', QMessageBox.YesRole)
+        self.box_dxf.show()
 
         choice_high.clicked.connect(lambda : self.dxf_choice(50,50))
         choice_middle.clicked.connect(lambda: self.dxf_choice(30,30))
