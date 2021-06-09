@@ -36,18 +36,27 @@ class block_meshing:
         # start_time = datetime.datetime.now()
         m = self.m
         n = self.n
-        plots = self.plots
         group_plots_init, num_group  = block_meshing.group(self)
         num_group = int(num_group)
-        for i in range(num_group):
-            plots = group_plots_init[i]
-            arx,ary = block_meshing.initial_boundary(self,plots)
+        if num_group !=1:
+            for i in range(num_group):
+                plots = group_plots_init[i]
+                arx,ary = block_meshing.initial_boundary(self,plots)
+                for j in range(0, k):
+                    arx,ary = block_meshing.iteration(self,arx,ary)
+                arrx = arx.copy()
+                arry = ary.copy()
+                block_meshing.picture(self, arrx, arry)
+            # plt.show()
+        else:
+            plots = group_plots_init
+            arx, ary = block_meshing.initial_boundary(self, plots)
             for j in range(0, k):
-                arx,ary = block_meshing.iteration(self,arx,ary)
+                arx, ary = block_meshing.iteration(self, arx, ary)
             arrx = arx.copy()
             arry = ary.copy()
             block_meshing.picture(self, arrx, arry)
-        plt.show()
+            # plt.show()
             # else:
             #     arrx = np.vstack((arrx,arx))
             #     arry = np.vstack((arry, ary))
@@ -58,6 +67,7 @@ class block_meshing:
 
     def group(self):
         plots = rank(self.plots)
+        # plots = self.plots
         group_plots_init, num_group = block(plots)
         return group_plots_init, num_group
 
@@ -88,7 +98,7 @@ class block_meshing:
         plt.plot(np.transpose(arx), np.transpose(ary), color='b')
 
 
-# plots = np.array([[1,1],[1,0],[2,0],[3,1],[3,2],[2,2]])
+# plots = np.array([[1,1],[1,0],[2,0],[3,1],[3,2]])
 # a= block_meshing(plots,10,10)
 # arx,ary = a.mesh(10)
 #

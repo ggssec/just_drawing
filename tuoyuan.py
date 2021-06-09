@@ -92,7 +92,7 @@ class tuoyuan():
         plt.plot(arx_, ary_, color='r')
         plt.plot(np.transpose(arx), np.transpose(ary), color='b')
         plt.plot(np.transpose(arx_), np.transpose(ary_), color='b')
-        plt.show()
+        # plt.show()
 
 # plots = np.array([[3,2],[2,3],[1,2],[2,1]]).reshape((4,2))
 # a = circular(plots,30,30)

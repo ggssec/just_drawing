@@ -53,9 +53,10 @@ def block(plots):
     num_plots = np.shape(plots)[0]
 
     if num_plots == 4:
-        return plots
+        num_group =1
+        return plots,num_group
 
-    if num_plots%2 ==0 and num_plots != 4:
+    elif num_plots%2 ==0 and num_plots != 4:
         num_group = int ((num_plots-4)/2+1)
         group_plots_init = plots[:4].copy()
         for i in range(1,num_group):
@@ -65,7 +66,7 @@ def block(plots):
         group_plots_init = group_plots_init.reshape((num_group,4,2))
         return group_plots_init,num_group
 
-    if num_plots%2 != 0:
+    elif num_plots%2 != 0:
         num_group = int((num_plots +1- 4) / 2 + 1)
         group_plots_init = plots[:4].copy()
         if num_group>2:

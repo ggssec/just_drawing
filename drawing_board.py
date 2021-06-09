@@ -11,6 +11,7 @@ import math
 import sys
 import dxfgrabber
 import cv2
+import numpy as np
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -241,20 +242,26 @@ class Ui_mainWindow(object):
             plots = np.array(self.line1)
             mesh1 = block_meshing(plots, m, n)
             mesh1.mesh(10)
+            plt.show()
         elif self.type_of_entity[0] == 'LWPOLYLINE':
             for i in range(len(self.lwpolyline)):
                 plots = np.array(self.lwpolyline[i])
+                if plots[0][0] == plots[-1][0]and plots[0][1] == plots[-1][1]:
+                    plots = plots[:len(plots) - 1]
                 mesh1 = block_meshing(plots, m, n)
                 mesh1.mesh(10)
+            plt.show()
         elif self.type_of_entity[0] == 'CIRCLE':
             for i in range(len(self.circle_c)):
-                plots = tuoyuan(self.circle_c[i],self.circle_r[i],self.circle_r[i] ,m, n)
+                plots = tuoyuan(self.circle_c[i],self.circle_c[i]+np.array([self.circle_r[i],0]),self.circle_r[i] ,m, n)
                 plots.mesh(5)
+            plt.show()
                 
         elif self.type_of_entity[0] == 'ELLIPSE':
             for i in range(len(self.ellipse_center)):
                 plots = tuoyuan(self.ellipse_center[i],self.ellipse_ratio_long[i],self.ellipse_ratio[i] ,m, n)
                 plots.mesh(5)
+            plt.show()
     def bt_choice1(self):
 
         plots = np.array(self.My_Area.coord_rect)
