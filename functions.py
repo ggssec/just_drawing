@@ -1,5 +1,6 @@
 import numpy as np
 
+import matplotlib.pyplot as plt
 #迭代
 def iteration(arx,ary):
     n = arx.shape[0]
@@ -31,6 +32,15 @@ def rank(plots):
             jiaodu[i] = np.arctan(abs((center[1]-plots[i,1])/(center[0]-plots[i,0]))) + np.pi/2*2
         elif (plots[i][1] < center[1]) & (plots[i][0] > center[0]):
             jiaodu[i] = np.arctan(abs((center[1]-plots[i,1])/(center[0]-plots[i,0]))) + np.pi/2*3
+        elif plots[i][0] == center[0] and plots[i][1]>center[1]:
+            jiaodu[i] = 0
+        elif plots[i][0] == center[0] and plots[i][1]<center[1]:
+            jiaodu[i] = np.pi
+        elif plots[i][1] == center[1] and plots[i][0]>center[0]:
+            jiaodu[i] = np.pi/2
+        elif plots[i][1] == center[1] and plots[i][0]<center[0]:
+            jiaodu[i] = np.pi*3/2
+
     plot = plots[np.argsort(jiaodu,axis=0)]
     plot_sque = np.squeeze(plot)
     # print(np.hstack((plots,jiaodu)))
@@ -39,12 +49,13 @@ def rank(plots):
 
 #顶点分块划分
 def block(plots):
+    plots = np.array(plots)
     num_plots = np.shape(plots)[0]
 
     if num_plots == 4:
         return plots
 
-    if num_plots%2 ==0 & num_plots == 4:
+    if num_plots%2 ==0 and num_plots != 4:
         num_group = int ((num_plots-4)/2+1)
         group_plots_init = plots[:4].copy()
         for i in range(1,num_group):
@@ -84,8 +95,15 @@ def block(plots):
             return group_plots_init,num_group
 
 
+
 # plots = np.array([[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9]])
 # plots,num_group = block(plots)
+# arx,ary = block_duobianxing(num_group)
+# plt.plot(arx, ary, color='r')
+# plt.plot(np.transpose(arx), np.transpose(ary), color='b')
+# plt.show()
+# print(plots)
+# print(num_group)
 #
 # # print(np.vstack((plots,plots)))
 # print(plots)

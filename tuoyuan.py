@@ -1,11 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 class tuoyuan():
 
-    def __init__(self,center,a,b,n,m):
+    def __init__(self,center,plot_long,b,n,m):
         self.center = center
-        self.a = a
+        self.plot_long = plot_long
+        self.a = math.sqrt((center[0]-plot_long[0])**2+(center[1]-plot_long[1])**2)
         self.b = b
         self.n = n
         self.m = m
@@ -17,6 +19,17 @@ class tuoyuan():
     #     self.b = abs(plots[2,1]-plots[3,1])/2
     #     self.n = n
     #     self.m = m
+    # def initial_boundary(self):
+    #     a = self.a
+    #     b = self.b
+    #     initial_jiaodu = math.atan((self.plot_long[1]-self.center[1])/(self.plot_long[0]-self.center[0]))
+    #     jiaodu = np.linspace(0,np.pi,self.m)
+    #     distance = a**2+(b**2-a**2)*np.sin(jiaodu)**2
+    #     arx = distance*np.cos(jiaodu+initial_jiaodu)
+    #     ary = distance*np.sin(jiaodu+initial_jiaodu)
+    #     for i in range(1,self.n):
+    #         arx = (arx-self.center[0])
+
 
     def iteration(self, arx, ary, k):
         n = arx.shape[0]

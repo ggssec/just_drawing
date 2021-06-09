@@ -250,6 +250,7 @@ class Ui_mainWindow(object):
             for i in range(len(self.circle_c)):
                 plots = tuoyuan(self.circle_c[i],self.circle_r[i],self.circle_r[i] ,m, n)
                 plots.mesh(5)
+                
         elif self.type_of_entity[0] == 'ELLIPSE':
             for i in range(len(self.ellipse_center)):
                 plots = tuoyuan(self.ellipse_center[i],self.ellipse_ratio_long[i],self.ellipse_ratio[i] ,m, n)

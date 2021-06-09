@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from functions import iteration,rank,block
+from functions import rank,block
 import datetime
 # import Physical_boundary_acquisition_test
 
@@ -12,12 +12,9 @@ class block_meshing:
         # self.k = k
         self.ctem_num = m * n
 
-    def mesh(self,k):
-        # start_time = datetime.datetime.now()
+    def initial_boundary(self,plots):
         m = self.m
         n = self.n
-        plots = self.plots
-        plots = block_meshing.group(self)
         arrx = np.random.random((m, n))
         arry = np.random.random((m, n))
 
@@ -32,17 +29,37 @@ class block_meshing:
         for j in range(0, m):
             arrx[j][0] = np.linspace(plots[0][0], plots[3][0], m)[j]
             arry[j][0] = np.linspace(plots[0][1], plots[3][1], n)[j]
-        for i in range(0, k):
-            # print(i)
-            block_meshing.iteration(self,arrx,arry)
-        block_meshing.picture(self,arrx,arry)
+
+        return arrx,arry
+
+    def mesh(self,k):
+        # start_time = datetime.datetime.now()
+        m = self.m
+        n = self.n
+        plots = self.plots
+        group_plots_init, num_group  = block_meshing.group(self)
+        num_group = int(num_group)
+        for i in range(num_group):
+            plots = group_plots_init[i]
+            arx,ary = block_meshing.initial_boundary(self,plots)
+            for j in range(0, k):
+                arx,ary = block_meshing.iteration(self,arx,ary)
+            arrx = arx.copy()
+            arry = ary.copy()
+            block_meshing.picture(self, arrx, arry)
+        plt.show()
+            # else:
+            #     arrx = np.vstack((arrx,arx))
+            #     arry = np.vstack((arry, ary))
+        # block_meshing.picture(self,arrx,arry)
         # end_time = datetime.datetime.now()
         # print("迭代用时" + str(end_time - start_time))
         return arrx, arry
 
     def group(self):
         plots = rank(self.plots)
-        return plots
+        group_plots_init, num_group = block(plots)
+        return group_plots_init, num_group
 
 
     def iteration(self, arx, ary):
@@ -63,24 +80,16 @@ class block_meshing:
                                 a[i][j] * (ary[i + 1][j] + ary[i - 1][j]) + r[i][j] * (ary[i][j + 1] + ary[i][j - 1]))
         return arx, ary
 
+    def dfsjak(self):
+        group_plots_init, num_group = block(plots=self.plots)
+
     def picture(self,arx,ary):
         plt.plot(arx, ary, color='r')
         plt.plot(np.transpose(arx), np.transpose(ary), color='b')
-        plt.show()
-# def main():
-# plots = np.array(Physical_boundary_acquisition_test.boundary_coordinates1)
-# mesh1 = block_meshing(plots,10,10)
-# mesh1.mesh(10)
-# if __name__ == '__main__':
-#     k = 10
-#     m = n = 10
-#     plots = np.array(Physical_boundary_acquisition.boundary_coordinates)
-#     # plots = rank(plots)
-#     # plots = block(plots)
-#     if plots.shape[0] == 4:
-#         mesh1 = block_meshing(plots,m,n)
-#         arrx,arry = mesh1.mesh()
-#         print(arrx)
-#         plt.plot(arrx,arry,color = 'r')
-#         plt.plot(np.transpose(arrx),np.transpose(arry),color = 'b')
-#         plt.show()
+
+
+plots = np.array([[1,1],[1,0],[2,0],[3,1],[3,2],[2,2]])
+a= block_meshing(plots,10,10)
+arx,ary = a.mesh(10)
+
+print(plots)
