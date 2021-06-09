@@ -78,20 +78,14 @@ class Ui_mainWindow(object):
         self.action.setObjectName("action")
         self.action_dxf = QtWidgets.QAction(mainWindow)
         self.action_dxf.setObjectName("action_dxf")
-        self.action_4 = QtWidgets.QAction(mainWindow)
-        self.action_4.setObjectName("action_4")
         self.action_5 = QtWidgets.QAction(mainWindow)
         self.action_5.setObjectName("action_5")
-        self.action_6 = QtWidgets.QAction(mainWindow)
-        self.action_6.setObjectName("action_6")
         self.action_7 = QtWidgets.QAction(mainWindow)
         self.action_7.setObjectName("action_7")
         self.action_8 = QtWidgets.QAction(mainWindow)
         self.action_8.setObjectName("action_8")
         self.menu_5.addAction(self.action_dxf)
-        self.menu_5.addAction(self.action_4)
         self.menu_6.addAction(self.action_5)
-        self.menu_6.addAction(self.action_6)
         self.menu.addAction(self.menu_5.menuAction())
         self.menu.addAction(self.menu_6.menuAction())
         self.menu_3.addAction(self.action_7)
@@ -130,9 +124,7 @@ class Ui_mainWindow(object):
         self.menu_3.setTitle(_translate("mainWindow", "工具"))
         self.action.setText(_translate("mainWindow", "关于软件"))
         self.action_dxf.setText(_translate("mainWindow", "打开dxf文件"))
-        self.action_4.setText(_translate("mainWindow", "打开网格数据"))
         self.action_5.setText(_translate("mainWindow", "保存图片"))
-        self.action_6.setText(_translate("mainWindow", "保存网格数据"))
         self.action_7.setText(_translate("mainWindow", "生成绘图网格"))
         self.action_8.setText(_translate("mainWindow", "生成dxf网格"))
 
@@ -214,14 +206,10 @@ class Ui_mainWindow(object):
         self.box = QMessageBox(QMessageBox.Question, '选择', '选择图形', QMessageBox.NoButton)
         self.choice1 = self.box.addButton('正放矩形', QMessageBox.YesRole)
         self.choice2 = self.box.addButton('正放椭圆形', QMessageBox.YesRole)
-        self.choice3 = self.box.addButton('多边形', QMessageBox.YesRole)
-        self.choice4 = self.box.addButton('斜放矩形', QMessageBox.YesRole)
         self.box.show()
 
         self.choice1.clicked.connect(lambda: self.bt_choice1())
         self.choice2.clicked.connect(lambda: self.bt_choice2())
-        # self.choice3.clicked.connect(lambda: self.bt_choice3())
-        # self.choice4.clicked.connect(lambda: self.bt_choice4())
 
         # QMessageBox.question(self, '选择', '选择图形', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         # cv2.destroyAllWindows()
@@ -267,11 +255,13 @@ class Ui_mainWindow(object):
         plots = np.array(self.My_Area.coord_rect)
         mesh1 = block_meshing(plots, 10, 10)
         mesh1.mesh(10)
+        plt.show()
 
     def bt_choice2(self):
-        plots = tuoyuan(self.My_Area.coord_elli,self.My_Area.elli_long,self.My_Area.elli_short, 25, 25)
 
+        plots = tuoyuan(self.My_Area.coord_elli,self.My_Area.elli_long,self.My_Area.elli_short, 25, 25)
         plots.mesh(5)
+        plt.show()
 
     def bt_choice3(self):
 
