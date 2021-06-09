@@ -26,22 +26,15 @@ class My_Board(QWidget):
         self.rect_list = []  # 将画过的矩形存到此数组中
         self.situation2 = False  # 描述在不在画
         self.shape2 = None  # 存储画过的椭圆
-        self.ellipse_list = []
-        self.pos_xy = []
+        self.ellipse_list = [] # 将画过的矩形存到此数组中
+        self.pos_xy = [] #
         self.points = []  # 储存读取的坐标点
         self.drawpath = False
         self.initui()
         # 显示坐标
 
     def initui(self):
-        # grid = QGridLayout()
-        # grid.setSpacing(100)
-        # self.setLayout(grid)
 
-        x = 0
-        y = 0
-
-        self.text = "x:{0},Y:{0}".format(x, y)
         self.setMouseTracking(False)
         self.setGeometry(500, 300, 100, 25)
         self.setWindowTitle('Event object')
@@ -66,22 +59,15 @@ class My_Board(QWidget):
         if self.points:
             self.painter.drawPolygon(QPolygon(self.points))
 
-        if self.Draw == "椭圆":
-
-            if self._IfEmpty == 0:
-                self.ellipse_list = []
-                self._IfEmpty = 1
-            else:
-                for self.shape2 in self.ellipse_list:
-                    self.shape2.paint2(self.painter)
-
-        elif self.Draw == "矩形":
-            if self._IfEmpty == 0:
-                self.rect_list = []
-                self._IfEmpty = 1
-            else:
-                for self.shape1 in self.rect_list:
-                    self.shape1.paint1(self.painter)
+        if self._IfEmpty == 0:
+            self.ellipse_list = []
+            self.rect_list = []
+            self._IfEmpty = 1
+        else:
+            for self.shape2 in self.ellipse_list:
+                self.shape2.paint2(self.painter)
+            for self.shape1 in self.rect_list:
+                self.shape1.paint1(self.painter)
 
         self.painter.end()
 

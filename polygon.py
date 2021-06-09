@@ -88,8 +88,8 @@ class block_meshing:
         plt.plot(np.transpose(arx), np.transpose(ary), color='b')
 
 
-plots = np.array([[1,1],[1,0],[2,0],[3,1],[3,2],[2,2]])
-a= block_meshing(plots,10,10)
-arx,ary = a.mesh(10)
-
-print(plots)
+# plots = np.array([[1,1],[1,0],[2,0],[3,1],[3,2],[2,2]])
+# a= block_meshing(plots,10,10)
+# arx,ary = a.mesh(10)
+#
+# print(plots)
