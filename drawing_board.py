@@ -262,8 +262,8 @@ class Ui_mainWindow(object):
         mesh1.mesh(10)
 
     def bt_choice2(self):
-
         plots = tuoyuan(self.My_Area.coord_elli,self.My_Area.elli_long,self.My_Area.elli_short, 25, 25)
+
         plots.mesh(5)
 
     def bt_choice3(self):

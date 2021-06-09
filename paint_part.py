@@ -162,7 +162,7 @@ class My_Board(QWidget):
                 self.situation2 = True
                 self.shape2 = None
                 self.coord_elli = [(self.x1 + self.x2)/2, (self.y1 + self.y2)/2]
-                self.elli_long = abs((self.x1 - self.x2)/2)
+                self.elli_long = [self.x2, (self.y1 + self.y2)/2]
                 self.elli_short = abs((self.y1 - self.y2)/2)
                 print(self.coord_elli)
             self.update()
