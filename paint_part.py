@@ -30,6 +30,10 @@ class My_Board(QWidget):
         self.pos_xy = [] #
         self.points = []  # 储存读取的坐标点
         self.drawpath = False
+        self.coord_rect_all = []
+        self.coord_elli_all = []
+        self.elli_long_all =[]
+        self.elli_short_all = []
         self.initui()
         # 显示坐标
 
@@ -143,13 +147,17 @@ class My_Board(QWidget):
             if self.Draw == '矩形':
                 self.situation1 = True
                 self.shape1 = None
-                self.coord_rect = [[self.x1, self.y1], [self.x2, self.y1], [self.x1, self.y2], [self.x2, self.y2]]
-                print(self.coord_rect)
+                coord_rect = [[self.x1, self.y1], [self.x2, self.y1], [self.x1, self.y2], [self.x2, self.y2]]
+                self.coord_rect_all.append(coord_rect)
+                print(self.coord_rect_all)
             if self.Draw == '椭圆':
                 self.situation2 = True
                 self.shape2 = None
-                self.coord_elli = [(self.x1 + self.x2)/2, (self.y1 + self.y2)/2]
-                self.elli_long = [self.x2, (self.y1 + self.y2)/2]
-                self.elli_short = abs((self.y1 - self.y2)/2)
-                print(self.coord_elli)
+                coord_elli = [(self.x1 + self.x2) / 2, (self.y1 + self.y2) / 2]
+                elli_long = [self.x2, (self.y1 + self.y2) / 2]
+                elli_short = abs((self.y1 - self.y2) / 2)
+                self.coord_elli_all.append(coord_elli)
+                self.elli_long_all.append(elli_long)
+                self.elli_short_all.append(elli_short)
+                print(self.coord_elli_all)
             self.update()

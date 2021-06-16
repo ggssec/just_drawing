@@ -238,26 +238,31 @@ class Ui_mainWindow(object):
             plt.show()
     def bt_choice1(self):
 
-        plots = np.array(self.My_Area.coord_rect)
-        mesh1 = block_meshing(plots, 10, 10)
-        mesh1.mesh(10)
+        for i in range(len(self.My_Area.coord_rect_all)):
+            plots = np.array(self.My_Area.coord_rect_all[i])
+            if plots[0][0] == plots[-1][0] and plots[0][1] == plots[-1][1]:
+                plots = plots[:len(plots) - 1]
+            mesh1 = block_meshing(plots, 10, 10)
+            mesh1.mesh(10)
         plt.show()
 
     def bt_choice2(self):
 
-        plots = tuoyuan(self.My_Area.coord_elli,self.My_Area.elli_long,self.My_Area.elli_short, 25, 25)
-        plots.mesh(5)
+        for i in range(len(self.My_Area.coord_elli_all)):
+            plots = tuoyuan(self.My_Area.coord_elli_all[i], self.My_Area.elli_long_all[i],
+                            self.My_Area.elli_short_all[i], 10, 10)
+            plots.mesh(5)
         plt.show()
 
     def bt_choice3(self):
 
-        plots = np.array(self.My_Area.coord_rect)
+        plots = np.array(self.My_Area.coord_rect_all)
         mesh1 = block_meshing(plots, 10, 10)
         mesh1.mesh(10)
 
     def bt_choice4(self):
 
-        plots = np.array(self.My_Area.coord_rect)
+        plots = np.array(self.My_Area.coord_rect_all)
         mesh1 = block_meshing(plots, 10, 10)
         mesh1.mesh(10)
 
