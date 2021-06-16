@@ -111,7 +111,7 @@ class Ui_mainWindow(object):
 
     def retranslateUi(self, mainWindow):
         _translate = QtCore.QCoreApplication.translate
-        mainWindow.setWindowTitle(_translate("mainWindow", "MainWindow"))
+        mainWindow.setWindowTitle(_translate("mainWindow", "针对多边形和椭圆形的通用式二维图形网格划分软件"))
         self.pushButton_width.setText(_translate("mainWindow", "画笔粗细"))
         self.pushButton_color.setText(_translate("mainWindow", "画板颜色"))
         self.pushButton_clear.setText(_translate("mainWindow", "清空画板"))
@@ -211,20 +211,6 @@ class Ui_mainWindow(object):
         self.choice1.clicked.connect(lambda: self.bt_choice1())
         self.choice2.clicked.connect(lambda: self.bt_choice2())
 
-        # QMessageBox.question(self, '选择', '选择图形', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-        # cv2.destroyAllWindows()
-
-        # fname = os.path.split(fpath[-2])[-1]
-        # with open(fname) as ex:
-        #     a=json.load(ex)
-        # filename = copy.deepcopy(a)
-        # # filename = rank(filename)
-        # print(filename)
-        # self.spots = []
-        # for i in range(len(filename)):
-        #     a = QPoint(filename[i][0],filename[i][1])
-        #     self.spots.append(a)
-        # self.lb.points = copy.deepcopy(self.spots)
     def dxf_choice(self,m,n):
         if self.type_of_entity[0] == 'LINE':
             plots = np.array(self.line1)
@@ -279,7 +265,8 @@ class Ui_mainWindow(object):
         savePath = QFileDialog.getSaveFileName(None, 'Save Your Paint', '.\\', '*.png')
         print(savePath)
         image = self.My_Area.make_image()
-        image.save(savePath[0])
+        print(image)
+        # image.save(savePath[0])
 
     def choose_color(self):
         Color = QColorDialog.getColor()  # color是Qcolor

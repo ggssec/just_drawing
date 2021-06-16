@@ -42,17 +42,17 @@ class My_Board(QWidget):
 
     def make_image(self):
         #获取画板内容（返回QImage）
-        img = self.pixmap
+        img = self.pixmap.toImage()
         return img
 
 
     def paintEvent(self, event):
 
         self.painter = QPainter(self)  # 建立绘图工具
-
         size = self.size()  # 获得窗口的尺寸。
 
         self.painter.begin(self.pixmap)
+        # self.painter.setRenderHint(Antialiasing,True)
         self.painter.drawPixmap(0, 0, self.pixmap)
         self.painter.setPen(QPen(self.Color, self.penwidth, Qt.SolidLine))
 
@@ -134,19 +134,6 @@ class My_Board(QWidget):
                 self.update()
 
         self.painter.end()
-        # 中间变量pos_tmp提取当前点
-        # pos_tmp = (event.pos().x(), event.pos().y())
-        #
-        # # 将坐标值打印到小黑框里
-        # print(pos_tmp)
-
-        # 将坐标值导出
-        # data = open(r"D:\pycharm\git-bfc2021\画板坐标.txt", 'a')
-        # data.write(str(pos_tmp))
-        # data.write("\t")
-        # data.close()
-        # pos_tmp添加到self.pos_xy中
-        # self.pos_xy.append(pos_tmp)
 
     def mouseReleaseEvent(self, event):
         self.x2 = event.x()
@@ -166,5 +153,3 @@ class My_Board(QWidget):
                 self.elli_short = abs((self.y1 - self.y2)/2)
                 print(self.coord_elli)
             self.update()
-
-        # self.__IsEmpty = False
