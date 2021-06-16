@@ -66,6 +66,10 @@ class My_Board(QWidget):
         if self._IfEmpty == 0:
             self.ellipse_list = []
             self.rect_list = []
+            self.coord_rect_all = []
+            self.elli_short_all = []
+            self.coord_elli_all = []
+            self.elli_long_all = []
             self._IfEmpty = 1
         else:
             for self.shape2 in self.ellipse_list:
