@@ -113,7 +113,7 @@ class Ui_mainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         mainWindow.setWindowTitle(_translate("mainWindow", "针对多边形和椭圆形的通用式二维图形网格划分软件"))
         self.pushButton_width.setText(_translate("mainWindow", "画笔粗细"))
-        self.pushButton_color.setText(_translate("mainWindow", "画板颜色"))
+        self.pushButton_color.setText(_translate("mainWindow", "画笔颜色"))
         self.pushButton_clear.setText(_translate("mainWindow", "清空画板"))
         self.comboBox.setItemText(0, _translate("mainWindow", "画线"))
         self.comboBox.setItemText(1, _translate("mainWindow", "矩形"))
