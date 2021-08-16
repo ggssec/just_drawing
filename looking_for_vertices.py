@@ -1,20 +1,10 @@
-# -*- coding:utf-8 -*-
-"""
-作者：陈昊卓
-日期：2021年04月14日
-"""
 import datetime
 from itertools import takewhile
 from itertools import product
-
-
 class LookingForVertices():
     def __init__(self, image):
         self.image = image
-
-    # 寻找正放矩形四个顶点坐标
     def Extract_rectangular_1(self, image):
-        # 寻找左上角顶点坐标
         boundary_coordinates = [[]]
         start_time = datetime.datetime.now()
         for i1 in range(len(image)):
@@ -25,7 +15,6 @@ class LookingForVertices():
             else:
                 continue
             break
-        # 寻找右上角顶点坐标
         for i2 in range(len(image)):
             for j2 in range(len(image[0]) - 1, 0, -1):
                 if image[i2, j2] == 255:
@@ -34,7 +23,6 @@ class LookingForVertices():
             else:
                 continue
             break
-        # 寻找左下角顶点坐标
         for i3 in range(len(image) - 1, 0, -1):
             for j3 in range(len(image[0])):
                 if image[i3, j3] == 255:
@@ -43,7 +31,6 @@ class LookingForVertices():
             else:
                 continue
             break
-        # 寻找右下角顶点坐标
         for i4 in range(len(image) - 1, 0, -1):
             for j4 in range(len(image[0]) - 1, 0, -1):
                 if image[i4, j4] == 255:
@@ -55,8 +42,6 @@ class LookingForVertices():
         end_time = datetime.datetime.now()
         print("寻找正放矩形四个顶点坐标用时" + str(end_time - start_time))
         return boundary_coordinates
-
-    # 寻找圆形几何参数
     def Extract_circle(self, image):
         boundary_coordinates = [[]]
         start_time = datetime.datetime.now()
@@ -77,7 +62,6 @@ class LookingForVertices():
         ia = int((i1 + i2) / 2)
         ja = int((j1 + j2) / 2)
         boundary_coordinates.append([ia, ja])
-
         for i3 in range(len(image) - 1, 0, -1):
             for j3 in range(len(image[0])):
                 if image[i3, j3] == 255:
@@ -95,7 +79,6 @@ class LookingForVertices():
         ib = int((i3 + i4) / 2)
         jb = int((j3 + j4) / 2)
         boundary_coordinates.append([ib, jb])
-
         for j5 in range(len(image[0])):
             for i5 in range(len(image)):
                 if image[i5, j5] == 255:
@@ -113,7 +96,6 @@ class LookingForVertices():
         ic = int((i5 + i6) / 2)
         jc = int((j5 + j6) / 2)
         boundary_coordinates.append([ic, jc])
-
         for j7 in range(len(image[0]) - 1, 0, -1):
             for i7 in range(len(image)):
                 if image[i7, j7] == 255:
@@ -134,32 +116,24 @@ class LookingForVertices():
         end_time = datetime.datetime.now()
         print("寻找圆形几何参数用时" + str(end_time - start_time))
         return boundary_coordinates
-
-    # 寻找多边形顶点坐标
     def Extract_polygon(self, image):
         boundary_coordinates = [[]]
         return boundary_coordinates
-
     def if_morethan255(self, image, i, j):
         if image[i, j] == 255:
             return False
         else:
             return True
-
-    # 寻找斜放矩形顶点坐标,快速方法
     def Extract_rectangular_2_fast(self, image):
         boundary_coordinates = [[]]
         start_time = datetime.datetime.now()
         for i1, j1 in product(range(len(image)), range(len(image[0]))):
             if image[i1, j1] == 255: break
-        # for i1, j1 in takewhile(lambda i1, j1: image[i1, j1] == 255, product(range(len(image)), range(len(image[0])))):
-        #     pass
         for i2, j2 in product(range(len(image)), range(len(image[0]) - 1, 0, -1)):
             if image[i2, j2] == 255: break
         ia = int((i1 + i2) / 2)
         ja = int((j1 + j2) / 2)
         boundary_coordinates.append([ia, ja])
-
         for i3, j3 in product(range(len(image) - 1, 0, -1), range(len(image[0]))):
             if image[i3, j3] == 255: break
         for i4, j4 in product(range(len(image) - 1, 0, -1), range(len(image[0]) - 1, 0, -1)):
@@ -167,7 +141,6 @@ class LookingForVertices():
         ib = int((i3 + i4) / 2)
         jb = int((j3 + j4) / 2)
         boundary_coordinates.append([ib, jb])
-
         for j5, i5 in product(range(len(image[0])), range(len(image))):
             if image[i5, j5] == 255: break
         for j6, i6 in product(range(len(image[0])), range(len(image) - 1, 0, -1)):
@@ -175,7 +148,6 @@ class LookingForVertices():
         ic = int((i5 + i6) / 2)
         jc = int((j5 + j6) / 2)
         boundary_coordinates.append([ic, jc])
-
         for j7, i7 in product(range(len(image[0]) - 1, 0, -1), range(len(image))):
             if image[i7, j7] == 255: break
         for j8, i8 in product(range(len(image[0]) - 1, 0, -1), range(len(image) - 1, 0, -1)):
@@ -183,12 +155,9 @@ class LookingForVertices():
         id = int((i7 + i8) / 2)
         jd = int((j7 + j8) / 2)
         boundary_coordinates.append([id, jd])
-
         end_time = datetime.datetime.now()
         print("寻找斜放矩形顶点坐标用时(fast)" + str(end_time - start_time))
         return boundary_coordinates
-
-        # 寻找斜放矩形顶点坐标,慢速方法
     def Extract_rectangular_2_slow(self, image):
         boundary_coordinates = [[]]
         start_time = datetime.datetime.now()
@@ -209,7 +178,6 @@ class LookingForVertices():
         ia = int((i1 + i2) / 2)
         ja = int((j1 + j2) / 2)
         boundary_coordinates.append([ia, ja])
-
         for i3 in range(len(image) - 1, 0, -1):
             for j3 in range(len(image[0])):
                 if image[i3, j3] == 255:
@@ -227,7 +195,6 @@ class LookingForVertices():
         ib = int((i3 + i4) / 2)
         jb = int((j3 + j4) / 2)
         boundary_coordinates.append([ib, jb])
-
         for j5 in range(len(image[0])):
             for i5 in range(len(image)):
                 if image[i5, j5] == 255:
@@ -245,7 +212,6 @@ class LookingForVertices():
         ic = int((i5 + i6) / 2)
         jc = int((j5 + j6) / 2)
         boundary_coordinates.append([ic, jc])
-
         for j7 in range(len(image[0]) - 1, 0, -1):
             for i7 in range(len(image)):
                 if image[i7, j7] == 255:
