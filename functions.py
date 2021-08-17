@@ -16,6 +16,7 @@ def iteration(arx,ary):
                      arx[i][j] = 1/(2*(a[i][j]+r[i][j]))*(a[i][j]*(arx[i+1][j]+arx[i-1][j])+r[i][j]*(arx[i][j+1]+arx[i][j-1]))
                      ary[i][j] = 1/(2*(a[i][j]+r[i][j]))*(a[i][j]*(ary[i+1][j]+ary[i-1][j])+r[i][j]*(ary[i][j+1]+ary[i][j-1]))
     return (arx,ary)
+
 def rank(plots):
     plots = np.array(plots)
     center = plots.mean(axis= 0)
@@ -40,6 +41,7 @@ def rank(plots):
     plot = plots[np.argsort(jiaodu,axis=0)]
     plot_sque = np.squeeze(plot)
     return plot_sque
+
 def block(plots):
     # plots = np.array(plots)
     num_plots = np.shape(plots)[0]
